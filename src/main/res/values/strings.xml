@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Weather App</string>
+    <string name="u2103">℃</string>
+    <string name="hint_text_city_name">City Name</string>
+    <string name="hint_text_conditions">Conditions</string>
+    <string name="hint_text_temp_now">TEMP now</string>
 </resources>

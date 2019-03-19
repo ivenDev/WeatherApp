@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@color/colorAccent"
+    android:orientation="horizontal">
+
+    <!--Текст: название города-->
+    <TextView
+        android:id="@+id/city_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:hint="@string/hint_text_city_name" />
+
+    <!--картинка наличия осадков-->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:hint="@string/hint_text_conditions" />
+
+    <!--Текст: значение температуры-->
+    <TextView
+        android:id="@+id/temp_now_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:hint="@string/hint_text_temp_now" />
+
+    <!--Текст: символ градусов по Цельсию-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:textSize="16sp"
+        android:text="@string/u2103" />
+</LinearLayout>

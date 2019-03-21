@@ -30,13 +30,20 @@ dependencies {
     def room_version = "2.1.0-alpha05"
 
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    annotationProcessor "androidx.room:room-compiler:2.1.0-alpha04"
     // optional - RxJava support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation "androidx.room:room-guava:$room_version"
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    //MVP LifeCycle
+    /*implementation 'com.arello-mobile:moxy:1.5.6'
+    *//*implementation 'com.arello-mobile: moxy-androidx: 1.5.6'*//*
+    implementation 'com.arello-mobile:moxy-app-compat:1.5.6'
+    implementation 'com.arello-mobile:moxy-android:1.5.6'
+    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.6'*/
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'

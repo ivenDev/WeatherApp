@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-// TODO: 20.03.2019 Реализовать обновление БД
+// TODO: 20.03.2019 Реализовать миграцию версий БД
 @Database(entities = {City.class},version = 1,exportSchema = false)
 public abstract class CitiesDB extends RoomDatabase {
 

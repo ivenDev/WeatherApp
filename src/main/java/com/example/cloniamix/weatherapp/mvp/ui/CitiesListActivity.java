@@ -2,6 +2,9 @@ package com.example.cloniamix.weatherapp.mvp.ui;
 
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
@@ -20,6 +23,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     CitiesListPresenter mCitiesListPresenter;
     private RecyclerView mRecyclerView;
     private WeatherAdapter mWeatherAdapter;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,8 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         mCitiesListPresenter = new CitiesListPresenter();
         mRecyclerView = findViewById(R.id.cities_list_rv);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mProgressBar = findViewById(R.id.progressBar);
 
 
     }
@@ -51,12 +57,32 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     }
 
     @Override
-    public void updateView(List<City> cities) {
-        mWeatherAdapter = new WeatherAdapter(cities);
-        mRecyclerView.setAdapter(mWeatherAdapter);
+    public void setProgress(boolean showProgress) {
+        if (showProgress){
+            mRecyclerView.setVisibility(View.GONE);
+            mProgressBar.setVisibility(View.VISIBLE);
+        }else {
+            mProgressBar.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
     }
 
 
+    public void showToast(String massage){
+        Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
+    public void updateView(List<City> cities) {
+       if (mWeatherAdapter == null){
+           mWeatherAdapter = new WeatherAdapter(cities);
+           mRecyclerView.setAdapter(mWeatherAdapter);
+       }else {
+           mWeatherAdapter.setCities(cities);
+           mWeatherAdapter.notifyDataSetChanged();
+       }
+    }
 }
 
 

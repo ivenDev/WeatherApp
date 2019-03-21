@@ -6,7 +6,11 @@ import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 
 import java.util.List;
 
+import io.reactivex.Completable;
+import io.reactivex.Flowable;
+
 // TODO: 21.03.2019 реализовать RxJava
+// TODO: 21.03.2019 реализовать реактивное добавление в БД
 public class Model {
 
     private CitiesDB mDB;
@@ -16,7 +20,7 @@ public class Model {
         initDB();
     }
 
-    public List<City> getCities(){
+    public Flowable<List<City>> getCities(){
         return mDB.citiesDao().getAllCities();
     }
 
@@ -24,13 +28,14 @@ public class Model {
         mDB.citiesDao().addCity(city);
     }
 
-    public void deleteCity(City city){
-        mDB.citiesDao().deleteCity(city);
+    public Completable deleteCity(City city){
+        return mDB.citiesDao().deleteCity(city);
     }
 
-    public void updateCity(List<City> cities){
-        mDB.citiesDao().updateCities(cities);
+    public Completable updateCity(List<City> cities){
+        return mDB.citiesDao().updateCities(cities);
     }
+
 
     // FIXME: 20.03.2019 ВРЕМЕННО!!!убрать после внедрения RxJava
     private void initDB(){

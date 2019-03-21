@@ -39,6 +39,10 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         return mCities.size();
     }
 
+    public void setCities(List<City> cities){
+        mCities = cities;
+    }
+
     static  class WeatherViewHolder extends RecyclerView.ViewHolder{
 
         private City mCity;

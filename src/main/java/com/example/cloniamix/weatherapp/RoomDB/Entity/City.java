@@ -1,5 +1,6 @@
 package com.example.cloniamix.weatherapp.RoomDB.Entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -7,21 +8,24 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "cities")
 public class City {
 
-    @PrimaryKey(autoGenerate = true)
+    /*@PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "_id")
-    private int cityId;
+    private int cityId;*/
+    @PrimaryKey
+    @ColumnInfo(name = "city_name")
+    @NonNull
     private String cityName;
     private String conditions;
     private int tempNow;
 
     //region getters & setters
-    public int getCityId() {
+    /*public int getCityId() {
         return cityId;
     }
 
     public void setCityId(int cityId) {
         this.cityId = cityId;
-    }
+    }*/
 
     public String getCityName() {
         return cityName;

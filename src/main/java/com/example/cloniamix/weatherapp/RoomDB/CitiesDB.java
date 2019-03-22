@@ -24,7 +24,7 @@ public abstract class CitiesDB extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(MyApp.getInstance(),
                             CitiesDB.class, "Sample.db")
-                            .allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
+                            //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
             }
         }

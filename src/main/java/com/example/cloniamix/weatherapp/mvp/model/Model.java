@@ -1,6 +1,8 @@
 package com.example.cloniamix.weatherapp.mvp.model;
 
 
+import android.util.Log;
+
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 
@@ -8,11 +10,14 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
-// TODO: 21.03.2019 реализовать RxJava
-// TODO: 21.03.2019 реализовать реактивное добавление в БД
+
 public class Model {
 
+    public static final String TAG = "weatherAppTag";
     private CitiesDB mDB;
 
     public Model() {
@@ -24,8 +29,8 @@ public class Model {
         return mDB.citiesDao().getAllCities();
     }
 
-    public void insertCiry(City city){
-        mDB.citiesDao().addCity(city);
+    public Completable insertCiry(City city){
+        return mDB.citiesDao().insertCity(city);
     }
 
     public Completable deleteCity(City city){
@@ -49,7 +54,21 @@ public class Model {
         city2.setConditions("Облачно");
         city2.setTempNow(15);
 
-        mDB.citiesDao().addCity(city);
-        mDB.citiesDao().addCity(city2);
+        CompositeDisposable disposable = new CompositeDisposable();
+
+        disposable.add(mDB.citiesDao().insertCity(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(()-> Log.d(TAG, "initDB: Город: " + city.getCityName() + " добавлен")
+                        ,throwable -> Log.d(TAG, "initDB: Ошибка добавления"))
+        );
+        disposable.add(mDB.citiesDao().insertCity(city2)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(()-> Log.d(TAG, "initDB: Город: " + city2.getCityName() + " добавлен")
+                        ,throwable -> Log.d(TAG, "initDB: Ошибка добавления"))
+        );
+
     }
+
 }

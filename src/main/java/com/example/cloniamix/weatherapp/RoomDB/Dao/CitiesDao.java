@@ -20,7 +20,7 @@ public interface CitiesDao {
     Flowable<List<City>> getAllCities();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void addCity(City city);
+    Completable insertCity(City city);
 
     @Update
     Completable updateCities(List<City> cities);

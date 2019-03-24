@@ -12,10 +12,12 @@ public class City {
     @ColumnInfo(name = "_id")
     private int cityId;*/
     @PrimaryKey
-    @ColumnInfo(name = "city_name")
+    @ColumnInfo(name = "name")
     @NonNull
     private String cityName;
+    @ColumnInfo(name = "description")
     private String conditions;
+    @ColumnInfo(name = "temp")
     private int tempNow;
 
     //region getters & setters

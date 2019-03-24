@@ -1,6 +1,7 @@
 package com.example.cloniamix.weatherapp.weatherApi;
 
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class WeatherMapApi {
@@ -9,14 +10,15 @@ public class WeatherMapApi {
     private final static String BASE_URL = "api.openweathermap.org/data/2.5/";
     private static WeatherMapApi sWeatherMapApi;
     private static IWeatherMapService sWeatherMapService;
-
+    private Retrofit mRetrofit;
     private WeatherMapApi(){
-        Retrofit retrofit = new Retrofit.Builder()
+        mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
-        sWeatherMapService = retrofit.create(IWeatherMapService.class);
+        /*sWeatherMapService = mRetrofit.create(IWeatherMapService.class);*/
     }
 
     public static WeatherMapApi getInstance(){
@@ -26,7 +28,7 @@ public class WeatherMapApi {
         return sWeatherMapApi;
     }
 
-    public static IWeatherMapService getWeatherMapService() {
-        return sWeatherMapService;
+    public IWeatherMapService getApi() {
+        return mRetrofit.create(IWeatherMapService.class);
     }
 }

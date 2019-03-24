@@ -39,6 +39,10 @@ public class CitiesListPresenter {
 
     }
 
+    private void getDataFromDB(){
+
+    }
+
     /** вызывать в onStop() activity*/
     public void detach(){
         mCompositeDisposable.dispose();

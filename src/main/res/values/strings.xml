@@ -4,4 +4,6 @@
     <string name="hint_text_city_name">City Name</string>
     <string name="hint_text_conditions">Conditions</string>
     <string name="hint_text_temp_now">TEMP now</string>
+    <string name="search_item_menu">Search</string>
+    <string name="add_new_city_item">new</string>
 </resources>

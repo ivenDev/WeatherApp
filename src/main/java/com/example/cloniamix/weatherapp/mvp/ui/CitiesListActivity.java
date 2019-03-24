@@ -2,8 +2,10 @@ package com.example.cloniamix.weatherapp.mvp.ui;
 
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.cloniamix.weatherapp.R;
@@ -36,8 +38,16 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
 
         mProgressBar = findViewById(R.id.progressBar);
 
-
     }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
 
 
     @Override

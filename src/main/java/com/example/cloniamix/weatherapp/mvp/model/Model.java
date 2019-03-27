@@ -14,7 +14,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
-
+// TODO: 27.03.2019 подумать, как сделать, чтобы в БД название города на русском
 public class Model {
 
     public static final String TAG = "weatherAppTag";
@@ -22,14 +22,14 @@ public class Model {
 
     public Model() {
         mDB = CitiesDB.getINSTANCE();
-        initDB();
+        /*initDB();*/
     }
 
     public Flowable<List<City>> getCities(){
         return mDB.citiesDao().getAllCities();
     }
 
-    public Completable insertCiry(City city){
+    public Completable insertCity(City city){
         return mDB.citiesDao().insertCity(city);
     }
 
@@ -42,8 +42,8 @@ public class Model {
     }
 
 
-    // FIXME: 20.03.2019 ВРЕМЕННО!!!убрать после внедрения RxJava
-    private void initDB(){
+
+    /*private void initDB(){
         City city = new City();
         city.setCityName("Саранск");
         city.setConditions("Солнце");
@@ -69,6 +69,6 @@ public class Model {
                         ,throwable -> Log.d(TAG, "initDB: Ошибка добавления"))
         );
 
-    }
+    }*/
 
 }

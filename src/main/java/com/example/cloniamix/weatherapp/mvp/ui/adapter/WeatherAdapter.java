@@ -59,7 +59,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
         private void bindCity(City city){
             mCity = city;
-            String tempNow = Integer.toString(mCity.getTempNow());
+            String tempNow = Double.toString(mCity.getTempNow());
 
             mCityName.setText(mCity.getCityName());
             mConditions.setText(mCity.getConditions());

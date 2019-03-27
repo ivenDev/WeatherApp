@@ -9,12 +9,12 @@ import com.example.cloniamix.weatherapp.weatherApi.WeatherMapApi;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
+// TODO: 27.03.2019 чистка кода
 public class CitiesListPresenter {
 
     private Model mModel;
@@ -35,9 +35,10 @@ public class CitiesListPresenter {
     /**вызывать в onStart() activity*/
     public void attach(CitiesListActivity view){
         mView = view;
-
+// TODO: 27.03.2019 сделать проверку на наличие БД, если она есть, то обновить данные, если нет,то загрузить два города
         mView.setProgress(true);
-        /*getDataFromApi("Саранск");*/
+        getDataFromApi("Саранск");
+        getDataFromApi("Москва");
         /*getDataFromApi("Москва");*/
         getDataFromDB();
 
@@ -46,7 +47,6 @@ public class CitiesListPresenter {
 
     private void getDataFromDB(){
         mCompositeDisposable.add(mModel.getCities()
-                .delay(1,TimeUnit.SECONDS)// FIXME: 21.03.2019 ВРЕМЕННО!!! убрать после реализации запроса в сеть
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cities -> {
                     mCities = cities;
@@ -55,28 +55,38 @@ public class CitiesListPresenter {
         );
     }
 
-    /*private void getDataFromApi(String cityName){
+    private void getDataFromApi(String cityName){
         mCompositeDisposable.add(WeatherMapApi.getInstance()
                 .getApi()
                 .getWeatherWithCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(city -> {
-                    mCitiesFromNet.add(city);
-                    mCompositeDisposable.add(mModel.insertCiry(city)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(()-> Log.d(TAG, "getDataFromApi: город: " + city.getCityName() +
-                                    " добален из интернета")
-                                    ,throwable -> Log.d(TAG, "getDataFromApi: ошибка добавления города из интернета")
-                            )
-                    );
-                    },
-                        throwable -> {
+                    City city1 = new City();
+                    city1.setCityName(city.getName());
+                    city1.setTempNow(city.getMain().getTemp());
+                    city1.setConditions("");
+                    mCitiesFromNet.add(city1);
+                    get();
+                    }
+                    ,throwable -> {
                     Log.d(TAG, "getDataFromApi: " + throwable);
                     mView.showToast("Ошибка связи");})
         );
-    }*/
+
+
+    }
+
+    private void get() {
+        mCompositeDisposable.add(mModel.insertCity(mCitiesFromNet.get(0))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(()-> Log.d(TAG, "getDataFromApi: город: " + mCitiesFromNet.get(0).getCityName() +
+                                " добален из интернета")
+                        ,throwable -> Log.d(TAG, "getDataFromApi: ошибка добавления города из интернета")
+                )
+        );
+    }
 
     /** вызывать в onStop() activity*/
     public void detach(){

@@ -18,7 +18,7 @@ public class City {
     @ColumnInfo(name = "description")
     private String conditions;
     @ColumnInfo(name = "temp")
-    private int tempNow;
+    private double tempNow;
 
     //region getters & setters
     /*public int getCityId() {
@@ -45,11 +45,11 @@ public class City {
         this.conditions = conditions;
     }
 
-    public int getTempNow() {
+    public double getTempNow() {
         return tempNow;
     }
 
-    public void setTempNow(int tempNow) {
+    public void setTempNow(double tempNow) {
         this.tempNow = tempNow;
     }
     //endregion

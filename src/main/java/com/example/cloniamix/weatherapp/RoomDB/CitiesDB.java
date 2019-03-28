@@ -23,7 +23,7 @@ public abstract class CitiesDB extends RoomDatabase {
             synchronized (CitiesDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(MyApp.getInstance(),
-                            CitiesDB.class, "Sample.db")
+                            CitiesDB.class, "CityWeather.db")
                             //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
             }

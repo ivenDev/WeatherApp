@@ -53,7 +53,7 @@ public class CitiesListPresenter {
                     mView.setProgress(false);
                     mView.updateView(mCities);
                     for (City city:mCities){
-                        getDataFromApi(city.getCityName());
+                        getDataFromApi(city.getCityName());// FIXME: 29.03.2019 возможно происходит зацикливание. проверить и устранить
                     }})
         );
     }
@@ -74,6 +74,7 @@ public class CitiesListPresenter {
                     city.setConditions("");
                     /*mCitiesFromNet.add(city);*/
                     mModel.updateCity(city);
+                    
 
                     }
                     ,throwable -> {

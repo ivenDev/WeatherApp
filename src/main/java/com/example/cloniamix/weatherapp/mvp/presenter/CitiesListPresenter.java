@@ -40,9 +40,7 @@ public class CitiesListPresenter {
         mView = view;
 // TODO: 27.03.2019 сделать проверку на наличие БД, если она есть, то обновить данные, если нет,то загрузить два города
         mView.setProgress(true);
-
-
-                
+        getDataFromDB();
 
     }
 
@@ -52,19 +50,19 @@ public class CitiesListPresenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cities -> {
                     mCities = cities;
+                    mView.setProgress(false);
+                    mView.updateView(mCities);
                     for (City city:mCities){
                         getDataFromApi(city.getCityName());
-                    }
-                    /*mView.setProgress(false);
-                    mView.updateView(mCities);*/})
+                    }})
         );
     }
 
     private void getDataFromApi(String cityName){
 
-        WeatherMapApi.getInstance().getApi().getWeatherWithCityName(cityName);
+       /* WeatherMapApi.getInstance().getApi().getWeatherWithCityName(cityName);*/
 
-        /*mCompositeDisposable.add(WeatherMapApi.getInstance()
+        mCompositeDisposable.add(WeatherMapApi.getInstance()
                 .getApi()
                 .getWeatherWithCityName(cityName)
                 .subscribeOn(Schedulers.io())
@@ -74,13 +72,14 @@ public class CitiesListPresenter {
                     city.setCityName(cityWeather.getName());
                     city.setTempNow(cityWeather.getMain().getTemp());
                     city.setConditions("");
-                    *//*mCitiesFromNet.add(city);*//*
+                    /*mCitiesFromNet.add(city);*/
+                    mModel.updateCity(city);
 
                     }
                     ,throwable -> {
                     Log.d(TAG, "getDataFromApi: " + throwable);
                     mView.showToast("Ошибка связи");})
-        );*/
+        );
 
 
     }

@@ -1,8 +1,6 @@
 package com.example.cloniamix.weatherapp.mvp.model;
 
 
-import android.util.Log;
-
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 
@@ -10,9 +8,6 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 // TODO: 27.03.2019 подумать, как сделать, чтобы в БД название города на русском
 public class Model {
@@ -37,9 +32,11 @@ public class Model {
         return mDB.citiesDao().deleteCity(city);
     }
 
-    public Completable updateCity(List<City> cities){
-        return mDB.citiesDao().updateCities(cities);
+    public Completable updateCity(City city){
+        return mDB.citiesDao().updateCity(city);
     }
+
+
 
 
 

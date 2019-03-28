@@ -26,6 +26,9 @@ public abstract class CitiesDB extends RoomDatabase {
                             CitiesDB.class, "CityWeather.db")
                             //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
+                    INSTANCE.citiesDao().insertCity(new City("Saransk"));
+                    INSTANCE.citiesDao().insertCity(new City("Moscow"));
+
             }
         }
     }

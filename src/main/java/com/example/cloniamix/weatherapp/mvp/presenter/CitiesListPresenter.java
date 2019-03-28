@@ -10,6 +10,9 @@ import com.example.cloniamix.weatherapp.weatherApi.WeatherMapApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
+import io.reactivex.Observable;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -37,42 +40,47 @@ public class CitiesListPresenter {
         mView = view;
 // TODO: 27.03.2019 сделать проверку на наличие БД, если она есть, то обновить данные, если нет,то загрузить два города
         mView.setProgress(true);
-        getDataFromApi("Саранск");
-        getDataFromApi("Москва");
-        /*getDataFromApi("Москва");*/
-        getDataFromDB();
 
+
+                
 
     }
+
 
     private void getDataFromDB(){
         mCompositeDisposable.add(mModel.getCities()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cities -> {
                     mCities = cities;
-                    mView.setProgress(false);
-                    mView.updateView(mCities);})
+                    for (City city:mCities){
+                        getDataFromApi(city.getCityName());
+                    }
+                    /*mView.setProgress(false);
+                    mView.updateView(mCities);*/})
         );
     }
 
     private void getDataFromApi(String cityName){
-        mCompositeDisposable.add(WeatherMapApi.getInstance()
+
+        WeatherMapApi.getInstance().getApi().getWeatherWithCityName(cityName);
+
+        /*mCompositeDisposable.add(WeatherMapApi.getInstance()
                 .getApi()
                 .getWeatherWithCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(city -> {
-                    City city1 = new City();
-                    city1.setCityName(city.getName());
-                    city1.setTempNow(city.getMain().getTemp());
-                    city1.setConditions("");
-                    mCitiesFromNet.add(city1);
-                    get();
+                .subscribe(cityWeather -> {
+                    City city = new City();
+                    city.setCityName(cityWeather.getName());
+                    city.setTempNow(cityWeather.getMain().getTemp());
+                    city.setConditions("");
+                    *//*mCitiesFromNet.add(city);*//*
+
                     }
                     ,throwable -> {
                     Log.d(TAG, "getDataFromApi: " + throwable);
                     mView.showToast("Ошибка связи");})
-        );
+        );*/
 
 
     }
@@ -94,5 +102,18 @@ public class CitiesListPresenter {
         mView = null;
         mCities = null;
         mCitiesFromNet = null;
+    }
+
+
+    private  List<String> getCitiesName(List<City> cities){
+        ArrayList<String> citiesName = new ArrayList<>();
+        for (City city: cities){
+            citiesName.add(city.getCityName());
+        }
+        return citiesName;
+    }
+
+    private String getCityName(City city){
+        return city.getCityName();
     }
 }

@@ -23,7 +23,7 @@ public interface CitiesDao {
     Completable insertCity(City city);
 
     @Update
-    Completable updateCities(List<City> cities);
+    Completable updateCity(City city);
 
     @Delete
     Completable deleteCity(City city);

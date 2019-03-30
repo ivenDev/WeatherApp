@@ -4,8 +4,11 @@ import android.util.Log;
 
 import com.example.cloniamix.weatherapp.RoomDB.Dao.CitiesDao;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
-import com.example.cloniamix.weatherapp.app.Const;
+import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.app.MyApp;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.room.Database;
 import androidx.room.Room;
@@ -32,21 +35,22 @@ public abstract class CitiesDB extends RoomDatabase {
                             CitiesDB.class, "CityWeather.db")
                             //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
+
+                    // FIXME: 29.03.2019 подумать, как освободить disposable
                     CompositeDisposable disposable = new CompositeDisposable();
-                    disposable.add(INSTANCE.citiesDao().insertCity(new City("Saransk"))
+
+                    List<City> cities = new ArrayList<>();
+                    cities.add(new City("Saransk"));
+                    cities.add(new City("Moscow"));
+
+                    disposable.add(INSTANCE.citiesDao().insertCities(cities)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(()-> Log.d(Const.APP_TAG, "initDB: Город: Saransk добавлен")
-                                    ,throwable -> Log.d(Const.APP_TAG, "initDB: Ошибка добавления"))
-                    );
-                    disposable.add(INSTANCE.citiesDao().insertCity(new City("Moscow"))
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(()-> Log.d(Const.APP_TAG, "initDB: Город: Moscow добавлен")
-                                    ,throwable -> Log.d(Const.APP_TAG, "initDB: Ошибка добавления"))
+                            .subscribe(()-> Log.d(Utils.APP_TAG, "CitiesDB.initDB: Города добавлены")
+                                    ,throwable -> Log.d(Utils.APP_TAG, "CitiesDB.initDB: Ошибка добавления"))
                     );
 
-                    disposable.dispose();
+                    /*disposable.dispose();*/
 
             }
         }

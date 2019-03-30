@@ -16,8 +16,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     private List<City> mCities;
 
-    public WeatherAdapter(List<City> cities) {
-        mCities = cities;
+    public WeatherAdapter(/*List<City> cities*/) {
+        /*mCities = cities;*/
     }
 
     // TODO: 19.03.2019 В item_city_weather применить единый стиль и посмотреть какие значения рекомендует material design
@@ -41,6 +41,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     public void setCities(List<City> cities){
         mCities = cities;
+        notifyDataSetChanged();
     }
 
     static  class WeatherViewHolder extends RecyclerView.ViewHolder{

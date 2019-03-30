@@ -8,6 +8,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 // TODO: 27.03.2019 подумать, как сделать, чтобы в БД название города на русском
 public class Model {
@@ -20,12 +21,16 @@ public class Model {
         /*initDB();*/
     }
 
-    public Flowable<List<City>> getCities(){
+    public Observable<List<City>> getCities(){
         return mDB.citiesDao().getAllCities();
     }
 
     public Completable insertCity(City city){
         return mDB.citiesDao().insertCity(city);
+    }
+
+    public Completable insertCities(List<City> cities){
+        return mDB.citiesDao().insertCities(cities);
     }
 
     public Completable deleteCity(City city){

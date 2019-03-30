@@ -12,15 +12,19 @@ import androidx.room.Query;
 import androidx.room.Update;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 @Dao
 public interface CitiesDao {
 
     @Query("SELECT * FROM cities")
-    Flowable<List<City>> getAllCities();
+    Observable<List<City>> getAllCities();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertCity(City city);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertCities(List<City> cities);
 
     @Update
     Completable updateCity(City city);

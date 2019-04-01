@@ -6,7 +6,7 @@ import android.view.View;
 
 public abstract class Utils {
 
-    public static final String APP_TAG = "cloniamix.tag";
+    public static final String APP_TAG = "weatherAppTag";
 
     public static void setVisible(View view, boolean show){
         if (view == null) return;

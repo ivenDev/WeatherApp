@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.mvp.ui.adapter;
+package com.example.cloniamix.weatherapp.city_list_activity_screen.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

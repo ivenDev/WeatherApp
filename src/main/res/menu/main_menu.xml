@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:tools="schemas.android.com/tools"
-    tools:context = "com.example.cloniamix.weatherapp.mvp.ui.CitiesListActivity"
+    tools:context = "com.example.cloniamix.weatherapp.city_list_activity_screen.ui.CitiesListActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
     <item
         android:id="@+id/add_new_city_item"
-        android:icon="@drawable/ic_add_black_24dp"
+        android:icon="@drawable/ic_autorenew_white_24dp"
         android:title="@string/add_new_city_item"
+        android:onClick="updateDataFromNet"
         app:showAsAction="ifRoom|collapseActionView"/>
 </menu>

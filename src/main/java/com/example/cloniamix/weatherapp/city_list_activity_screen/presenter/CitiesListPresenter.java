@@ -1,32 +1,28 @@
-package com.example.cloniamix.weatherapp.mvp.presenter;
+package com.example.cloniamix.weatherapp.city_list_activity_screen.presenter;
 
 import android.util.Log;
 
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
-import com.example.cloniamix.weatherapp.mvp.model.Model;
-import com.example.cloniamix.weatherapp.mvp.ui.CitiesListActivity;
-import com.example.cloniamix.weatherapp.weatherApi.POJO.CityWeather;
-import com.example.cloniamix.weatherapp.weatherApi.WeatherMapApi;
+import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresenter;
+import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
+import com.example.cloniamix.weatherapp.city_list_activity_screen.model.Model;
+import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import androidx.annotation.NonNull;
-import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
-import io.reactivex.Single;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class CitiesListPresenter {
+public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
 
     private Model mModel;
     private List<City> mCities;
-    private CitiesListActivity mView;
     private CompositeDisposable mCompositeDisposable;
 
     public CitiesListPresenter() {
@@ -38,38 +34,31 @@ public class CitiesListPresenter {
 
     public void loadDBData(){
         getDataFromDB();
-        getDataFromApi();
     }
 
     public void loadNetData(){
-
+        getDataFromApi();
     }
 
     //region methods with view lifecycle
-    /**вызывать в onStart() activity*/
-    public void attach(CitiesListActivity view){
-        mView = view;
+    @Override
+    public void unsubscribe() {
+        super.unsubscribe();
 
-    }
-
-    /** вызывать в onStop() activity*/
-    public void detach() {
         if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
             mCompositeDisposable.dispose();
         }
-            mView = null;
-            mCities = null;
-
+        mCities = null;
     }
     //endregion
 
 
     //region for work with model
     private void getDataFromDB(){
-        mView.showProgress();
+        getView().showProgress();
         Disposable disposable = mModel.getCities()
                 .subscribeOn(Schedulers.io())
-                .delay(2, TimeUnit.SECONDS)
+                /*.delay(2, TimeUnit.SECONDS)*/
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateUI
                         ,this::handleError);
@@ -78,45 +67,26 @@ public class CitiesListPresenter {
     }
 
     private void getDataFromApi(){
-
-        Disposable disposable = mModel.getCities()
+        getView().showProgress();
+        Disposable disposable = Flowable.fromArray(getCitiesName(mCities))
                 .subscribeOn(Schedulers.io())
-                .map(this::getCitiesName)
-                .flatMap(Observable::fromArray)
+                /*.map(this::getCitiesName)*/
+                .flatMap(Flowable::fromArray)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> queryAPI(s));
+                .subscribe(this::queryAPI);
 
-        /*Disposable disposable = WeatherMapApi.getInstance()
-                .getApi()
-                .getWeatherWithCityName(cityName)
-                .subscribeOn(Schedulers.io())
-                .delay(10, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(cityWeather -> {
-                    City city = new City();
-                    city.setCityName(cityWeather.getName());
-                    city.setTempNow(cityWeather.getMain().getTemp());
-                    city.setConditions("");
-                    updateCityInDB(city);
-                    }
-                    ,throwable -> {
-                    Log.d(Utils.APP_TAG, "getDataFromApi: " + throwable);
-                    mView.showToast("Ошибка связи");});
-
-        */mCompositeDisposable.add(disposable);
+                mCompositeDisposable.add(disposable);
     }
 
     private void queryAPI(String s) {
 
-        Disposable disposable = WeatherMapApi.getInstance()
-                .getApi()
-                .getWeatherWithCityName(s)
+        Disposable disposable = mModel.getWeatherWithCityName(s)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateCityInDB
                         ,throwable -> {
                             Log.d(Utils.APP_TAG, "getDataFromApi: " + throwable);
-                            mView.showToast("Ошибка связи");});
+                            getView().showToast("Ошибка связи");});
 
         mCompositeDisposable.add(disposable);
     }
@@ -142,12 +112,13 @@ public class CitiesListPresenter {
 
     private void updateUI(@NonNull List<City> cities){
         mCities = cities;
-        mView.updateView(cities);
+        Utils.log("update UI");
+        getView().updateView(cities);
     }
 
     private void handleError(Throwable throwable){
         Utils.log(throwable.toString());
-        mView.showToast("DB error");
+        getView().showToast("DB error");
     }
 
     private String[] getCitiesName(List<City> cities){
@@ -164,7 +135,4 @@ public class CitiesListPresenter {
         return citiesNameString;
     }
 
-    private String getCityName(City city){
-        return city.getCityName();
-    }
 }

@@ -1,12 +1,9 @@
-package com.example.cloniamix.weatherapp.weatherApi;
+package com.example.cloniamix.weatherapp.mvp.contract.base_model.network;
 
-import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
-import com.example.cloniamix.weatherapp.weatherApi.POJO.CityWeather;
+import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
 
 import io.reactivex.Single;
-import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface IWeatherMapService {

@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.weatherApi;
+package com.example.cloniamix.weatherapp.mvp.contract.base_model.network;
 
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -8,17 +8,15 @@ public class WeatherMapApi {
 
     /*public final static String API_KAY = "f38474a55533419d791782971413a0ca";*/
     private final static String BASE_URL = "https://api.openweathermap.org/data/2.5/"; /*https://api.openweathermap.org/data/2.5/weather?q=Саранск&APPID=f38474a55533419d791782971413a0ca&units=metric&lang=ru*/
+
     private static WeatherMapApi sWeatherMapApi;
     private static IWeatherMapService sWeatherMapService;
-    private Retrofit mRetrofit;
-    private WeatherMapApi(){
-        mRetrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
 
-        /*sWeatherMapService = mRetrofit.create(IWeatherMapService.class);*/
+
+    private WeatherMapApi(){
+        Retrofit sRetrofit = buildRetrofit();
+
+        sWeatherMapService = sRetrofit.create(IWeatherMapService.class);
     }
 
     public static WeatherMapApi getInstance(){
@@ -29,6 +27,14 @@ public class WeatherMapApi {
     }
 
     public IWeatherMapService getApi() {
-        return mRetrofit.create(IWeatherMapService.class);
+        return sWeatherMapService;
+    }
+
+    private Retrofit buildRetrofit(){
+        return new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
     }
 }

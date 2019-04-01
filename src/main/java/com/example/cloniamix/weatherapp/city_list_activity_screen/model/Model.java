@@ -1,24 +1,31 @@
-package com.example.cloniamix.weatherapp.mvp.model;
+package com.example.cloniamix.weatherapp.city_list_activity_screen.model;
 
 
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
+import com.example.cloniamix.weatherapp.mvp.contract.base_model.BaseModel;
+import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
+import com.example.cloniamix.weatherapp.mvp.contract.base_model.network.WeatherMapApi;
 
 import java.util.List;
 
 import io.reactivex.Completable;
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 // TODO: 27.03.2019 подумать, как сделать, чтобы в БД название города на русском
-public class Model {
+public class Model extends BaseModel<CityWeather> {
 
-    public static final String TAG = "weatherAppTag";
     private CitiesDB mDB;
 
     public Model() {
         mDB = CitiesDB.getINSTANCE();
         /*initDB();*/
+    }
+
+    @Override
+    public Single<CityWeather> getWeatherWithCityName(String cityName) {
+        return WeatherMapApi.getInstance().getApi().getWeatherWithCityName(cityName);
     }
 
     public Observable<List<City>> getCities(){

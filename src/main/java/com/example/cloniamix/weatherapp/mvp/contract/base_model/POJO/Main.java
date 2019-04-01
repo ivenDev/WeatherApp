@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.weatherApi.POJO;
+package com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

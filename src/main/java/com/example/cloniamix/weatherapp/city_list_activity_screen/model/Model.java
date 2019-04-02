@@ -38,6 +38,10 @@ public class Model extends BaseModel<CityWeather> {
         return mDB.citiesDao().getAllCities();
     }
 
+    public Single<List<City>> getCitiesSingle(){
+        return mDB.citiesDao().getAllCitiesSingle();
+    }
+
     //Метод добавления нового объекта City в БД.
     public Completable insertCity(City city){
         return mDB.citiesDao().insertCity(city);

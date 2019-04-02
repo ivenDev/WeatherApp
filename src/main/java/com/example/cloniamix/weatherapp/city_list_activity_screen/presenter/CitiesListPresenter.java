@@ -14,6 +14,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -60,7 +61,6 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
         getView().showProgress();
         Disposable disposable = mModel.getCities()
                 .subscribeOn(Schedulers.io())
-                /*.delay(2, TimeUnit.SECONDS)*/
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::updateUI
                         ,this::handleError);
@@ -70,14 +70,15 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
 
     private void getDataFromApi(){
         getView().showProgress();
-        Disposable disposable = Flowable.fromArray(getCitiesName(mCities))
+
+        Disposable disposable = mModel.getCitiesSingle()
                 .subscribeOn(Schedulers.io())
-                /*.map(this::getCitiesName)*/
-                .flatMap(Flowable::fromArray)
+                .map(this::getStringCitiesName)
+                .flatMapObservable(Observable::fromArray)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::queryAPI);
 
-                mCompositeDisposable.add(disposable);
+        mCompositeDisposable.add(disposable);
     }
 
     private void queryAPI(String s) {
@@ -124,14 +125,14 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
     }
 
     // FIXME: 02.04.2019 может перенести в модель?
-    private String[] getCitiesName(List<City> cities){
+    private String[] getStringCitiesName(List<City> cities) {
         ArrayList<String> citiesName = new ArrayList<>();
-        for (City city: cities){
+        for (City city : cities) {
             citiesName.add(city.getCityName());
         }
         String[] citiesNameString = new String[citiesName.size()];
 
-        for (int i = 0; i<citiesName.size(); i++) {
+        for (int i = 0; i < citiesName.size(); i++) {
             citiesNameString[i] = citiesName.get(i);
         }
 

@@ -1,6 +1,5 @@
 package com.example.cloniamix.weatherapp.city_list_activity_screen.ui;
 
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+/** Активити экрана списка городов с данными погоды(название города, температура на данный момент)*/
+
 public class CitiesListActivity extends AppCompatActivity implements ICitiesListView {
 
     private CitiesListPresenter mCitiesListPresenter;
@@ -27,6 +28,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     private WeatherAdapter mWeatherAdapter;
     private ProgressBar mProgressBar;
 
+    //region lifeCycle methods
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,14 +37,16 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         init();
     }
 
+    //здесь подписываем презентер на view
     @Override
     protected void onStart() {
         super.onStart();
         mCitiesListPresenter.subscribe(this);
         mCitiesListPresenter.loadDBData();
+        mCitiesListPresenter.loadNetData();
     }
 
-    /**в этом методе освобождаем память */
+    //В этом методе освобождаем память
     @Override
     protected void onStop() {
         super.onStop();
@@ -51,6 +55,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         mRecyclerView = null;
         mWeatherAdapter = null;
     }
+    //endregion
 
     @Override
     public void showProgress() {
@@ -58,15 +63,10 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         Utils.setVisible(mRecyclerView,false);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
-    }
-
-    public void updateDataFromNet(MenuItem view){
-        mCitiesListPresenter.loadNetData();
     }
 
     @Override
@@ -81,7 +81,10 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         }
         Utils.setVisible(mRecyclerView,true);
         Utils.setVisible(mProgressBar, false);
-        /*mCitiesListPresenter.loadNetData();*/
+    }
+
+    public void updateDataFromNet(MenuItem view){
+        mCitiesListPresenter.loadNetData();
     }
 
     private void init() {

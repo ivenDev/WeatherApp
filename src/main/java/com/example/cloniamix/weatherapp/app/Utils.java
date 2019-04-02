@@ -3,7 +3,7 @@ package com.example.cloniamix.weatherapp.app;
 import android.util.Log;
 import android.view.View;
 
-
+/**Класс хранения констант и универсальных методов*/
 public abstract class Utils {
 
     public static final String APP_TAG = "weatherAppTag";

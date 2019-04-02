@@ -19,6 +19,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+/** Слой Презентер при реализации архитектуры MVP. Является презентером для CityListActivity. */
+
 public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
 
     private Model mModel;
@@ -121,6 +123,7 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
         getView().showToast("DB error");
     }
 
+    // FIXME: 02.04.2019 может перенести в модель?
     private String[] getCitiesName(List<City> cities){
         ArrayList<String> citiesName = new ArrayList<>();
         for (City city: cities){

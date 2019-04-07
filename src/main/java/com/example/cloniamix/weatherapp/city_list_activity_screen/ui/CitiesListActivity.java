@@ -3,6 +3,7 @@ package com.example.cloniamix.weatherapp.city_list_activity_screen.ui;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -63,11 +64,6 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         Utils.setVisible(mRecyclerView,false);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
 
     @Override
     public void showToast(String massage){
@@ -95,6 +91,12 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         mWeatherAdapter = new WeatherAdapter();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mWeatherAdapter);
+
+        ImageView addCity = findViewById(R.id.add_new_city_image);
+        addCity.setOnClickListener(v -> mCitiesListPresenter.addNewCity());
+
+        ImageView renewData = findViewById(R.id.renew_weather_image_view);
+        renewData.setOnClickListener(v -> mCitiesListPresenter.loadNetData());
 
     }
 }

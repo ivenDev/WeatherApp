@@ -43,6 +43,9 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
         getDataFromApi();
     }
 
+    // TODO: 04.04.2019 перейти на новую активити или отобразить диалог
+    public void addNewCity(){}
+
     //region methods with view lifecycle
     @Override
     public void unsubscribe() {

@@ -20,7 +20,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         /*mCities = cities;*/
     }
 
-    // TODO: 19.03.2019 В item_city_weather применить единый стиль и посмотреть какие значения рекомендует material design
     @Override
     public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

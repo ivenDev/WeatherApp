@@ -6,4 +6,7 @@
     <string name="hint_text_temp_now">TEMP now</string>
     <string name="search_item_menu">Search</string>
     <string name="add_new_city_item">new</string>
+    <string name="search_btn_text">Найти</string>
+    <string name="cancel_btn_text">Отмена</string>
+    <string name="city_name_hint">City Name</string>
 </resources>

@@ -1,8 +1,6 @@
-package com.example.cloniamix.weatherapp.city_list_activity_screen.ui;
+package com.example.cloniamix.weatherapp.screen_city_list_activity.ui;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -11,8 +9,8 @@ import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
-import com.example.cloniamix.weatherapp.city_list_activity_screen.presenter.CitiesListPresenter;
-import com.example.cloniamix.weatherapp.city_list_activity_screen.ui.adapter.WeatherAdapter;
+import com.example.cloniamix.weatherapp.screen_city_list_activity.presenter.CitiesListPresenter;
+import com.example.cloniamix.weatherapp.screen_city_list_activity.ui.adapter.WeatherAdapter;
 
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_cities_list);
 
         init();
     }
@@ -43,8 +41,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     protected void onStart() {
         super.onStart();
         mCitiesListPresenter.subscribe(this);
-        mCitiesListPresenter.loadDBData();
-        mCitiesListPresenter.loadNetData();
+        mCitiesListPresenter.loadData();
     }
 
     //В этом методе освобождаем память
@@ -59,14 +56,21 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     //endregion
 
     @Override
-    public void showProgress() {
-        Utils.setVisible(mProgressBar,true);
-        Utils.setVisible(mRecyclerView,false);
+    public void showProgress(boolean show) {
+        if (show){
+            Utils.setVisible(mProgressBar,true);
+            Utils.setVisible(mRecyclerView,false);
+        }else {
+            Utils.setVisible(mProgressBar,false);
+            Utils.setVisible(mRecyclerView,true);
+        }
+
     }
 
 
     @Override
     public void showToast(String massage){
+        showProgress(true);
         Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
     }
 
@@ -75,12 +79,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         if (mWeatherAdapter != null){
             mWeatherAdapter.setCities(cities);
         }
-        Utils.setVisible(mRecyclerView,true);
-        Utils.setVisible(mProgressBar, false);
-    }
-
-    public void updateDataFromNet(MenuItem view){
-        mCitiesListPresenter.loadNetData();
+        showProgress(false);
     }
 
     private void init() {

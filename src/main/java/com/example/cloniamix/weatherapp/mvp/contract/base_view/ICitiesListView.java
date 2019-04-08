@@ -4,9 +4,6 @@ import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 
 import java.util.List;
 
-public interface ICitiesListView {
-
-    void showProgress();
-    void showToast(String message);
+public interface ICitiesListView extends IBaseView {
     void updateView(List<City> cities);
 }

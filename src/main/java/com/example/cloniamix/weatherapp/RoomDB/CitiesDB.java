@@ -36,7 +36,7 @@ public abstract class CitiesDB extends RoomDatabase {
                             //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
 
-                    // FIXME: 29.03.2019 подумать, как освободить disposable
+                    // FIXME: 29.03.2019 подумать,может убрать предустановку
                     CompositeDisposable disposable = new CompositeDisposable();
 
                     List<City> cities = new ArrayList<>();

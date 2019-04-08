@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.city_list_activity_screen.model;
+package com.example.cloniamix.weatherapp.screen_city_list_activity.model;
 
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
@@ -15,7 +15,7 @@ import io.reactivex.Single;
 
  /** Класс модели. Здесь реализованаы методы работы с БД и запросов в сеть*/
 
-// TODO: 27.03.2019 подумать, как сделать, чтобы в БД название города на русском
+
 public class Model extends BaseModel<CityWeather> {
 
     private CitiesDB mDB;

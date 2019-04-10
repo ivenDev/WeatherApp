@@ -7,7 +7,6 @@ import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresente
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-// FIXME: 08.04.2019 реализовать базовую активити и унаследовать от нее все активити
 public abstract class BaseActivity<V extends IBaseView,P extends BasePresenter<V>> extends AppCompatActivity/* implements IBaseView*/  {
 
     public P mPresenter;

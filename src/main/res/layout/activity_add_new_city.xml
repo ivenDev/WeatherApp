@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/city_name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -12,13 +12,13 @@
         android:hint="@string/city_name_hint" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/search_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/search_btn_text" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/cancel_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/cancel_btn_text" />

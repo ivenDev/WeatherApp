@@ -1,5 +1,6 @@
 package com.example.cloniamix.weatherapp.screen_city_list_activity.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -9,6 +10,7 @@ import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
+import com.example.cloniamix.weatherapp.screen_add_new_city_activity.ui.AddNewCityActivity;
 import com.example.cloniamix.weatherapp.screen_city_list_activity.presenter.CitiesListPresenter;
 import com.example.cloniamix.weatherapp.screen_city_list_activity.ui.adapter.WeatherAdapter;
 
@@ -33,25 +35,27 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cities_list);
 
-        init();
+        /*init();*/
     }
 
     //здесь подписываем презентер на view
     @Override
     protected void onStart() {
         super.onStart();
+        init();
         mCitiesListPresenter.subscribe(this);
         mCitiesListPresenter.loadData();
     }
 
+    // FIXME: 10.04.2019 решить проблему: при возврате на это активити, переменные не востанавливаются
     //В этом методе освобождаем память
     @Override
     protected void onStop() {
         super.onStop();
-        mCitiesListPresenter.unsubscribe();
+        /*mCitiesListPresenter.unsubscribe();
         mCitiesListPresenter = null;
         mRecyclerView = null;
-        mWeatherAdapter = null;
+        mWeatherAdapter = null;*/
     }
     //endregion
 
@@ -80,6 +84,10 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
             mWeatherAdapter.setCities(cities);
         }
         showProgress(false);
+    }
+
+    public void goToActivity(){
+        startActivity(new Intent(this, AddNewCityActivity.class));
     }
 
     private void init() {

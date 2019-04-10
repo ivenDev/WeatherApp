@@ -8,6 +8,7 @@ import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresente
 import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
 import com.example.cloniamix.weatherapp.screen_city_list_activity.model.Model;
 import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
+import com.example.cloniamix.weatherapp.screen_city_list_activity.ui.CitiesListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +22,11 @@ import io.reactivex.schedulers.Schedulers;
 
 /** Слой Презентер при реализации архитектуры MVP. Является презентером для CityListActivity. */
 
-public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
+public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
 
     private Model mModel;
     private List<City> mCities;
-    private CompositeDisposable mCompositeDisposable;
+    private CompositeDisposable mCompositeDisposable;//убрать в родителя
 
     public CitiesListPresenter() {
         mModel = new Model();
@@ -44,7 +45,9 @@ public class CitiesListPresenter extends BasePresenter<ICitiesListView> {
     }
 
     //перейти на новую активити или отобразить диалог
-    public void addNewCity(){}
+    public void addNewCity(){
+        getView().goToActivity();
+    }
 
     //region methods with view lifecycle
     @Override

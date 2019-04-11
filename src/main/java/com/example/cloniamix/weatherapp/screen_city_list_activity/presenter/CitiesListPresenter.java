@@ -15,6 +15,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -83,7 +84,9 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
                 .flatMapObservable(Observable::fromArray)
                 .observeOn(AndroidSchedulers.mainThread())
 
-                .subscribe(this::queryAPI)
+                .subscribe(this::queryAPI
+                        ,throwable -> getView().showToast("нет данных")
+                )
 
                 ;
 
@@ -122,6 +125,15 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
                                         + city.getCityName()+ throwable.toString() ))
         );
     }
+
+    public void deleteCity(City city){
+        mCompositeDisposable.add(mModel.deleteCity(city)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(()-> /*getView().showToast("Удалено")*/ Utils.log("City deleted")
+                        ,throwable -> /*getView().showToast("Ошибка удаления")*/Utils.log("Ошибка удаления")
+                ));
+    }
     //endregion
 
     private void updateUI(@NonNull List<City> cities){
@@ -134,6 +146,7 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
         Utils.log(throwable.toString());
         getView().showToast("DB error");
     }
+
 
     // FIXME: 02.04.2019 может перенести в модель?
     private String[] getStringCitiesName(List<City> cities) {

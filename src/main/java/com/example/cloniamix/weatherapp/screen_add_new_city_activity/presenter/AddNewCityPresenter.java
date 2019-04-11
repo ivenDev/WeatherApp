@@ -36,7 +36,7 @@ public class AddNewCityPresenter extends BasePresenter<AddNewCityActivity> {
         if (getView().getCityName() != null){
             String cityName = getView().getCityName();
             searchCityWeather(cityName);
-            getView().goToActivity();
+
         }else getView().showToast("Введите название города");
     }
 
@@ -51,9 +51,13 @@ public class AddNewCityPresenter extends BasePresenter<AddNewCityActivity> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(cityWeather -> {
                     insertCityInDB(cityWeather);
+                    getView().goToActivity();
                     Utils.log("Город: " + cityWeather.getName() + "Температура: " + cityWeather.getMain().getTemp());
                         }
-                        , throwable -> Utils.log(throwable.toString())
+                        , throwable -> {
+                    Utils.log(throwable.toString());
+                    getView().showToast("Город не найден");
+                        }
                 ));
     }
 

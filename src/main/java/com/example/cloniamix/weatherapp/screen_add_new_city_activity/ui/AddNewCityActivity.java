@@ -36,10 +36,10 @@ public class AddNewCityActivity extends AppCompatActivity implements IAddnewCity
 
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        /*mPresenter.unsubscribe();
-        mPresenter = null;*/
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.unsubscribe();
+        mPresenter = null;
     }
     //endregion
 
@@ -60,10 +60,9 @@ public class AddNewCityActivity extends AppCompatActivity implements IAddnewCity
         return null;
     }
 
-    // TODO: 10.04.2019 поработать с флагами и со стеком переходов назад
     public void goToActivity(){
         startActivity(new Intent(this, CitiesListActivity.class)
-                /*.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)*/);
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
     private void init(){

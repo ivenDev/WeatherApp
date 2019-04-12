@@ -47,15 +47,15 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         mCitiesListPresenter.loadData();
     }
 
-    // FIXME: 10.04.2019 решить проблему: при возврате на это активити, переменные не востанавливаются(реализовать освобождение в onDestroy)
+
     //В этом методе освобождаем память
     @Override
-    protected void onStop() {
-        super.onStop();
-        /*mCitiesListPresenter.unsubscribe();
+    protected void onDestroy() {
+        super.onDestroy();
+        mCitiesListPresenter.unsubscribe();
         mCitiesListPresenter = null;
         mRecyclerView = null;
-        mWeatherAdapter = null;*/
+        mWeatherAdapter = null;
     }
     //endregion
 

@@ -15,7 +15,7 @@ public abstract class BasePresenter<V extends IBaseView> implements IPresenter<V
         mView = view;
     }
 
-    /** вызывать в onStop() activity*/
+    /** вызывать в onDestroy() activity*/
     @Override
     public void unsubscribe() {
         mView = null;

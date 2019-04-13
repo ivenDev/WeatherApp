@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.screen_city_list_activity.model;
+package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.model;
 
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;

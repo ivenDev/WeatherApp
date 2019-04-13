@@ -1,21 +1,19 @@
-package com.example.cloniamix.weatherapp.screen_city_list_activity.presenter;
+package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter;
 
 import android.util.Log;
 
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresenter;
-import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
-import com.example.cloniamix.weatherapp.screen_city_list_activity.model.Model;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.model.Model;
 import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
-import com.example.cloniamix.weatherapp.screen_city_list_activity.ui.CitiesListActivity;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;

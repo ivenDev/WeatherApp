@@ -15,7 +15,6 @@
             android:id="@+id/city_name_a_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=""
             android:gravity="center"
             android:textSize="24sp"
             android:layout_marginBottom="16dp"

@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.screen_add_new_city_activity.ui;
+package com.example.cloniamix.weatherapp.mvp.screens.screen_add_new_city_activity.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.mvp.contract.base_view.IAddnewCityView;
-import com.example.cloniamix.weatherapp.screen_add_new_city_activity.presenter.AddNewCityPresenter;
-import com.example.cloniamix.weatherapp.screen_city_list_activity.ui.CitiesListActivity;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_add_new_city_activity.presenter.AddNewCityPresenter;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

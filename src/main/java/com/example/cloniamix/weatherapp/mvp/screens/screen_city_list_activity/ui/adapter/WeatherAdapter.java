@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.screen_city_list_activity.ui.adapter;
+package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
-import com.example.cloniamix.weatherapp.screen_city_list_activity.presenter.CitiesListPresenter;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter.CitiesListPresenter;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".screen_city_list_activity.ui.CitiesListActivity">
+    tools:context=".mvp.screens.screen_city_list_activity.ui.CitiesListActivity">
 
     <include
         android:id="@+id/toolbar"

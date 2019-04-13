@@ -1,4 +1,4 @@
-package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.model;
+package com.example.cloniamix.weatherapp.mvp.model;
 
 import com.example.cloniamix.weatherapp.RoomDB.CitiesDB;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
@@ -42,6 +42,9 @@ public class Model extends BaseModel<CityWeather> {
         return mDB.citiesDao().getAllCitiesSingle();
     }
 
+    public Observable<City> getCity(String cityName){
+        return mDB.citiesDao().getCity(cityName);
+    }
     //Метод добавления нового объекта City в БД.
     public Completable insertCity(City city){
         return mDB.citiesDao().insertCity(city);

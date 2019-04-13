@@ -7,7 +7,7 @@ import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
 import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresenter;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_add_new_city_activity.ui.AddNewCityActivity;
-import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.model.Model;
+import com.example.cloniamix.weatherapp.mvp.model.Model;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

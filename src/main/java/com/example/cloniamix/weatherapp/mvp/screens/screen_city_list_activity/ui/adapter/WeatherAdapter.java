@@ -1,5 +1,6 @@
 package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter.CitiesListPresenter;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_details.ui.DetailsActivity;
 
 import java.util.List;
 
@@ -74,7 +76,12 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         @Override
         public void onClick(View v) {
             Utils.log("Короткое нажатие для: " + mCity.getCityName());
-            Toast.makeText(itemView.getContext(),"переход на детализацию города " + mCity.getCityName(),Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(itemView.getContext(),"переход на детализацию города " + mCity.getCityName(),Toast.LENGTH_SHORT).show();*/
+
+            Intent intent = new Intent(itemView.getContext(), DetailsActivity.class);
+            intent.putExtra("cityName",mCity.getCityName());
+            itemView.getContext().startActivity(intent);
+
         }
 
         // TODO: 11.04.2019 реализовать удаление через диалог подтверждения (в идеале еще получить доступ к методам активити)

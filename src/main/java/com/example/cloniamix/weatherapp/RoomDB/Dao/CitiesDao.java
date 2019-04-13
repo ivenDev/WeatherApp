@@ -24,6 +24,9 @@ public interface CitiesDao {
     @Query("SELECT * FROM cities")
     Single<List<City>> getAllCitiesSingle();
 
+    @Query("SELECT * FROM cities WHERE name = :cityName ")
+    Observable<City> getCity(String cityName);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insertCity(City city);
 

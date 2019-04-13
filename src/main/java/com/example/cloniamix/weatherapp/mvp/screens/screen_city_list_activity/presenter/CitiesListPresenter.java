@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresenter;
-import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.model.Model;
+import com.example.cloniamix.weatherapp.mvp.model.Model;
 import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 

@@ -42,7 +42,6 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     @Override
     protected void onStart() {
         super.onStart();
-        /*init();*/
         mCitiesListPresenter.subscribe(this);
         mCitiesListPresenter.loadData();
     }

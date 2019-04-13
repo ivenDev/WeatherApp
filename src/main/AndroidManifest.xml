@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvp.screens.screen_add_new_city_activity.ui.AddNewCityActivity" />
+        <activity android:name=".mvp.screens.screen_details.ui.DetailsActivity" />
     </application>
 
 </manifest>

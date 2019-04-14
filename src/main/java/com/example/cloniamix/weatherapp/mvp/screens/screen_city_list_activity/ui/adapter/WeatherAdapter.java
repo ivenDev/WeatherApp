@@ -1,5 +1,7 @@
 package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.adapter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,8 +91,29 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         public boolean onLongClick(View v) {
             Utils.log("Долгое нажатие сработало для: " + mCity.getCityName());
             Toast.makeText(itemView.getContext(),"Сейчас должен удалиться город " + mCity.getCityName(),Toast.LENGTH_SHORT).show();
-            CitiesListPresenter presenter = new CitiesListPresenter();
-            presenter.deleteCity(mCity);
+            /*CitiesListPresenter presenter = new CitiesListPresenter();
+            presenter.deleteCity(mCity);*/
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
+            builder.setTitle("Удаление города")
+                    .setMessage("Вы уверенны?")
+                    .setCancelable(true)
+                    .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            CitiesListPresenter presenter = new CitiesListPresenter();
+                            presenter.deleteCity(mCity);
+                        }
+                    })
+                    .setOnCancelListener(DialogInterface::cancel);
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
             return true;
         }
     }

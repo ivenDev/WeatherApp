@@ -106,13 +106,14 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
     }
 
 
-    private void updateCityInDB(CityWeather cityWeather) {
+    private void updateCityInDB(CityWeather mcityWeather) {
         getView().showProgress(true);
 
+        CityWeather cityWeather = mcityWeather;
         City city = new City();
         city.setCityName(cityWeather.getName());
         city.setTempNow(cityWeather.getMain().getTemp());
-        city.setConditions("");
+        city.setConditions(cityWeather.getWeather().get(0).getDescription());
         mCompositeDisposable.add(mModel.updateCity(city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

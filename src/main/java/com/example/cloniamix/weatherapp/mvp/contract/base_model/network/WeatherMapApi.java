@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class WeatherMapApi {
 
     /*public final static String API_KAY = "f38474a55533419d791782971413a0ca";*/
-    private final static String BASE_URL = "https://api.openweathermap.org/data/2.5/"; /*https://api.openweathermap.org/data/2.5/weather?q=Саранск&APPID=f38474a55533419d791782971413a0ca&units=metric&lang=ru*/
+    private final static String BASE_URL = "https://api.openweathermap.org/"; /*https://api.openweathermap.org/data/2.5/weather?q=Саранск&APPID=f38474a55533419d791782971413a0ca&units=metric&lang=ru*/
 
     private static WeatherMapApi sWeatherMapApi;
     private static IWeatherMapService sWeatherMapService;

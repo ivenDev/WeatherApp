@@ -1,5 +1,6 @@
 package com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
@@ -7,6 +8,7 @@ import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_presenter.BasePresenter;
 import com.example.cloniamix.weatherapp.mvp.model.Model;
 import com.example.cloniamix.weatherapp.mvp.contract.base_model.POJO.CityWeather;
+import com.example.cloniamix.weatherapp.mvp.screens.screen_add_new_city_activity.ui.AddNewCityActivity;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 
 import java.util.ArrayList;
@@ -45,7 +47,8 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
 
     //перейти на новую активити или отобразить диалог
     public void addNewCity(){
-        getView().goToActivity();
+        Intent intent = new Intent(getView(), AddNewCityActivity.class);
+        getView().goToActivity(intent);
     }
 
     //region methods with view lifecycle
@@ -106,10 +109,9 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
     }
 
 
-    private void updateCityInDB(CityWeather mcityWeather) {
+    private void updateCityInDB(CityWeather cityWeather) {
         getView().showProgress(true);
 
-        CityWeather cityWeather = mcityWeather;
         City city = new City();
         city.setCityName(cityWeather.getName());
         city.setTempNow(cityWeather.getMain().getTemp());

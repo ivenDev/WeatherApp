@@ -67,36 +67,4 @@ public class Model extends BaseModel<CityWeather> {
     }
      //endregion
 
-
-
-
-
-    /*private void initDB(){
-        City city = new City();
-        city.setCityName("Саранск");
-        city.setConditions("Солнце");
-        city.setTempNow(24);
-
-        City city2 = new City();
-        city2.setCityName("Москва");
-        city2.setConditions("Облачно");
-        city2.setTempNow(15);
-
-        CompositeDisposable disposable = new CompositeDisposable();
-
-        disposable.add(mDB.citiesDao().insertCity(city)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(()-> Log.d(TAG, "initDB: Город: " + city.getCityName() + " добавлен")
-                        ,throwable -> Log.d(TAG, "initDB: Ошибка добавления"))
-        );
-        disposable.add(mDB.citiesDao().insertCity(city2)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(()-> Log.d(TAG, "initDB: Город: " + city2.getCityName() + " добавлен")
-                        ,throwable -> Log.d(TAG, "initDB: Ошибка добавления"))
-        );
-
-    }*/
-
 }

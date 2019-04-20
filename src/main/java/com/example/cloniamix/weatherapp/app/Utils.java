@@ -8,6 +8,9 @@ public abstract class Utils {
 
     public static final String APP_TAG = "weatherAppTag";
 
+    public static final String APP_PREFERENCES = "mySettings";
+    public static final String APP_PREFERENCES_CITY_NAME = "CityName";
+
     public static void setVisible(View view, boolean show){
         if (view == null) return;
 

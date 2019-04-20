@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.screens.screen_city_list_activity.ui.CitiesListActivity"
+        <activity android:name=".mvp.screens.screen_details.ui.DetailsActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".mvp.screens.screen_add_new_city_activity.ui.AddNewCityActivity" />
-        <activity android:name=".mvp.screens.screen_details.ui.DetailsActivity" />
+        <activity android:name=".mvp.screens.screen_city_list_activity.ui.CitiesListActivity" />
     </application>
 
 </manifest>

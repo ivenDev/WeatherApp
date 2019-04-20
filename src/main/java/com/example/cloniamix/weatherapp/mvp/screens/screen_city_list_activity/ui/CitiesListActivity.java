@@ -88,6 +88,16 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
     public void goToActivity(){
         startActivity(new Intent(this, AddNewCityActivity.class));
     }
+    public void goToActivity(Intent intent){
+        startActivity(intent);
+    }
+
+    public CitiesListPresenter getCitiesListPresenter() {
+        if (mCitiesListPresenter != null){
+            return mCitiesListPresenter;
+        }
+        return null;
+    }
 
     private void init() {
         mCitiesListPresenter = new CitiesListPresenter();

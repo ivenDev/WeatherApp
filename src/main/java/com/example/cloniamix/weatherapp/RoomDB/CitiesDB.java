@@ -36,8 +36,8 @@ public abstract class CitiesDB extends RoomDatabase {
                             //.allowMainThreadQueries() //исключает ошибку, если работать с БД в основном потоке
                             .build();
 
-                    // FIXME: 29.03.2019 убрать предустановку, и добавить проверку БД. Если она пуста, то отобразить активность добавления своего города
-                    CompositeDisposable disposable = new CompositeDisposable();
+                    // FIXME: 22.04.2019 предустановка закоментированна, удалить после проверки
+                    /*CompositeDisposable disposable = new CompositeDisposable();
 
                     List<City> cities = new ArrayList<>();
                     cities.add(new City("Saransk"));
@@ -48,7 +48,7 @@ public abstract class CitiesDB extends RoomDatabase {
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(()-> Log.d(Utils.APP_TAG, "CitiesDB.initDB: Города добавлены")
                                     ,throwable -> Log.d(Utils.APP_TAG, "CitiesDB.initDB: Ошибка добавления"))
-                    );
+                    );*/
 
                     /*disposable.dispose();*/
 

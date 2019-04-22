@@ -63,6 +63,10 @@ public class DetailsPresenter extends BasePresenter<DetailsActivity> {
         city.setCityName(cityWeather.getName());
         city.setTempNow(cityWeather.getMain().getTemp());
         city.setConditions(cityWeather.getWeather().get(0).getDescription());
+        city.setIcon(cityWeather.getWeather().get(0).getIcon());
+        city.setWindSpeed(cityWeather.getWind().getSpeed());
+        city.setPressure(cityWeather.getMain().getPressure());
+        city.setHumidity(cityWeather.getMain().getHumidity());
         mCompositeDisposable.add(mModel.updateCity(city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -25,7 +25,7 @@
         android:textColor="@color/colorBlue"
         android:text="@string/hint_text_city_name" />
 
-    <!--картинка наличия осадков-->
+    <!--описание погоды-->
     <TextView
         android:id="@+id/conditions_tv"
         android:layout_width="wrap_content"
@@ -35,7 +35,17 @@
         android:textSize="16sp"
         android:text="@string/hint_text_conditions" />
 
+
+
     <!--Текст: значение температуры-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:src="@drawable/i01d" />
+
     <TextView
         android:id="@+id/temp_now_tv"
         android:layout_width="wrap_content"

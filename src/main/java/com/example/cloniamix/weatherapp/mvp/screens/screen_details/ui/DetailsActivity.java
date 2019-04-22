@@ -19,12 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DetailsActivity extends AppCompatActivity implements IBaseView {
 
     private SharedPreferences mSettings;
-    private  String mName;
+    private String mName;
 
     private DetailsPresenter mDetailsPresenter;
     private TextView mCityName;
     private TextView mTempNow;
     private TextView mConditionsNow;
+
+    private ImageView mConditionsImage;
+
     private TextView mWind;
     private TextView mPressure;
     private TextView mHumidity;
@@ -46,7 +49,6 @@ public class DetailsActivity extends AppCompatActivity implements IBaseView {
         mName = mSettings.getString(Utils.APP_PREFERENCES_CITY_NAME, "Saransk");
         mDetailsPresenter.loadData(mName);
 
-
     }
 
     @Override
@@ -57,16 +59,30 @@ public class DetailsActivity extends AppCompatActivity implements IBaseView {
         mCityName = null;
         mTempNow = null;
         mConditionsNow = null;
+        mConditionsImage = null;
         mWind = null;
         mPressure = null;
         mHumidity = null;
     }
 
-    public void updateView(City city){
+    public void updateView(City city) {
         mCityName.setText(city.getCityName());
         String tempNow = Double.toString(city.getTempNow());
         mTempNow.setText(tempNow);
         mConditionsNow.setText(city.getConditions());
+
+        String icon = "i" + city.getIcon();
+        int id = getResources().getIdentifier(icon, "drawable", getPackageName());
+        mConditionsImage.setImageResource(id);
+
+        String windSpeed = "ветер: \n" +  city.getWindSpeed();
+        mWind.setText(windSpeed);
+
+        String pressure ="давление: \n" +  city.getPressure();
+        mPressure.setText(pressure);
+
+        String humidity = "влажность: \n" + city.getHumidity();
+        mHumidity.setText(humidity);
     }
 
     @Override
@@ -79,11 +95,11 @@ public class DetailsActivity extends AppCompatActivity implements IBaseView {
 
     }
 
-    public void goToActivity(Intent intent){
+    public void goToActivity(Intent intent) {
         startActivity(intent);
     }
 
-    private void init(){
+    private void init() {
 
         mSettings = getSharedPreferences(Utils.APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -91,6 +107,9 @@ public class DetailsActivity extends AppCompatActivity implements IBaseView {
         mCityName = findViewById(R.id.city_name_a_details);
         mTempNow = findViewById(R.id.temp_now_a_details);
         mConditionsNow = findViewById(R.id.conditions_now_a_details);
+
+        mConditionsImage = findViewById(R.id.imageView_details);
+
         mWind = findViewById(R.id.wind_a_details);
         mPressure = findViewById(R.id.pressure_a_details);
         mHumidity = findViewById(R.id.humidity_a_details);

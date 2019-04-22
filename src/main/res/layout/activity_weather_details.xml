@@ -43,14 +43,13 @@
                 android:textSize="36sp"
                 android:text="TextView" />
 
-            <TextView
-                android:id="@+id/conditions_now_image_a_details"
+            <ImageView
+                android:id="@+id/imageView_details"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="36sp"
-                android:text="TextView" />
+                android:padding="8dp"
+                android:src="@drawable/i01d" />
         </LinearLayout>
 
         <TextView

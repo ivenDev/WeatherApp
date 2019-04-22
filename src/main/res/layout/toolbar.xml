@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:fontFamily="serif"
             android:gravity="center"
-            android:text="Weather"
+            android:text="@string/toolbar_title"
             android:textColor="@color/colorBlack"
             android:textSize="24sp" />
 

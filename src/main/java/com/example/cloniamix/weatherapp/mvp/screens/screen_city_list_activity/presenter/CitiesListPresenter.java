@@ -26,14 +26,11 @@ import io.reactivex.schedulers.Schedulers;
 public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
 
     private Model mModel;
-    private List<City> mCities;
     private CompositeDisposable mCompositeDisposable;//убрать в родителя
 
     public CitiesListPresenter() {
         mModel = new Model();
         mCompositeDisposable = new CompositeDisposable();
-        mCities = new ArrayList<>();
-
     }
 
     public void loadData(){
@@ -59,7 +56,9 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
         if (mCompositeDisposable != null && !mCompositeDisposable.isDisposed()) {
             mCompositeDisposable.dispose();
         }
-        mCities = null;
+
+        mModel = null;
+        mCompositeDisposable = null;
     }
     //endregion
 
@@ -87,9 +86,7 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
 
                 .subscribe(this::queryAPI
                         ,throwable -> getView().showToast("нет данных")
-                )
-
-                ;
+                );
 
         mCompositeDisposable.add(disposable);
     }
@@ -132,14 +129,19 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
         mCompositeDisposable.add(mModel.deleteCity(city)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(()-> /*getView().showToast("Удалено")*/ Utils.log("City deleted")
-                        ,throwable -> /*getView().showToast("Ошибка удаления")*/Utils.log("Ошибка удаления")
+                .subscribe(()->{
+                    getView().showToast("Удалено");
+                    Utils.log("City deleted");
+                }
+                ,throwable -> {
+                    getView().showToast("Ошибка удаления");
+                    Utils.log("Ошибка удаления");
+                }
                 ));
     }
     //endregion
 
     private void updateUI(@NonNull List<City> cities){
-        mCities = cities;
         Utils.log("update UI");
         getView().updateView(cities);
     }
@@ -150,7 +152,7 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
     }
 
 
-    // FIXME: 02.04.2019 может перенести в модель?
+    // FIXME: 02.04.2019 перенести в модель
     private String[] getStringCitiesName(List<City> cities) {
         ArrayList<String> citiesName = new ArrayList<>();
         for (City city : cities) {
@@ -161,8 +163,6 @@ public class CitiesListPresenter extends BasePresenter<CitiesListActivity> {
         for (int i = 0; i < citiesName.size(); i++) {
             citiesNameString[i] = citiesName.get(i);
         }
-
         return citiesNameString;
     }
-
 }

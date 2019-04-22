@@ -38,21 +38,19 @@ public class Model extends BaseModel<CityWeather> {
         return mDB.citiesDao().getAllCities();
     }
 
+
     public Single<List<City>> getCitiesSingle(){
         return mDB.citiesDao().getAllCitiesSingle();
     }
 
+
     public Observable<City> getCity(String cityName){
         return mDB.citiesDao().getCity(cityName);
     }
+
     //Метод добавления нового объекта City в БД.
     public Completable insertCity(City city){
         return mDB.citiesDao().insertCity(city);
-    }
-
-     //Метод добавления списка новых объектов City в БД.
-    public Completable insertCities(List<City> cities){
-        return mDB.citiesDao().insertCities(cities);
     }
 
     //Метод удаления города из БД при совпадении Primary Key(название города) во входящем объекте

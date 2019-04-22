@@ -40,6 +40,7 @@ public class AddNewCityActivity extends AppCompatActivity implements IAddnewCity
         super.onDestroy();
         mPresenter.unsubscribe();
         mPresenter = null;
+        mCityNameEditText = null;
     }
     //endregion
 
@@ -67,12 +68,12 @@ public class AddNewCityActivity extends AppCompatActivity implements IAddnewCity
 
     private void init(){
         mPresenter = new AddNewCityPresenter();
+
         mCityNameEditText = findViewById(R.id.city_name_edit);
-
         Button searchBtn = findViewById(R.id.search_btn);
-        searchBtn.setOnClickListener(v -> mPresenter.onSearchBtnClicked());
-
         Button cancelBtn = findViewById(R.id.cancel_btn);
+
+        searchBtn.setOnClickListener(v -> mPresenter.onSearchBtnClicked());
         cancelBtn.setOnClickListener(v -> mPresenter.onCancelBtnClicked());
     }
 }

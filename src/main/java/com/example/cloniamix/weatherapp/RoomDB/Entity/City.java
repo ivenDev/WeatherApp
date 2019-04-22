@@ -8,13 +8,10 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "cities")
 public class City {
 
-    /*@PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "_id")
-    private int cityId;*/
     @PrimaryKey
     @ColumnInfo(name = "name")
     @NonNull
-    private String cityName; //Название города
+    private String cityName = ""; //Название города
 
     @ColumnInfo(name = "description")
     private String conditions; //Описание погодных условий
@@ -34,27 +31,21 @@ public class City {
     @ColumnInfo(name = "humidity")
     private int humidity;
 
-    //region getters & setters
-    /*public int getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
-    }*/
 
     public City() {
     }
 
-    public City(String cityName) {
+    public City(@NonNull String cityName) {
         this.cityName = cityName;
     }
 
+    //region getters & setters
+    @NonNull
     public String getCityName() {
         return cityName;
     }
 
-    public void setCityName(String cityName) {
+    public void setCityName(@NonNull String cityName) {
         this.cityName = cityName;
     }
 

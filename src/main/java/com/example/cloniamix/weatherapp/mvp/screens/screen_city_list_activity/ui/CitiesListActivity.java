@@ -10,7 +10,6 @@ import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
 import com.example.cloniamix.weatherapp.mvp.contract.base_view.ICitiesListView;
-import com.example.cloniamix.weatherapp.mvp.screens.screen_add_new_city_activity.ui.AddNewCityActivity;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter.CitiesListPresenter;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.adapter.WeatherAdapter;
 
@@ -55,6 +54,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         mCitiesListPresenter = null;
         mRecyclerView = null;
         mWeatherAdapter = null;
+        mProgressBar = null;
     }
     //endregion
 
@@ -67,14 +67,13 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
             Utils.setVisible(mProgressBar,false);
             Utils.setVisible(mRecyclerView,true);
         }
-
     }
 
 
     @Override
-    public void showToast(String massage){
-        showProgress(true);
-        Toast.makeText(this,massage,Toast.LENGTH_SHORT).show();
+    public void showToast(String message){
+
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -85,9 +84,7 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
         showProgress(false);
     }
 
-    public void goToActivity(){
-        startActivity(new Intent(this, AddNewCityActivity.class));
-    }
+
     public void goToActivity(Intent intent){
         startActivity(intent);
     }
@@ -101,10 +98,11 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
 
     private void init() {
         mCitiesListPresenter = new CitiesListPresenter();
-        mProgressBar = findViewById(R.id.progressBar);
-
-        mRecyclerView = findViewById(R.id.cities_list_rv);
         mWeatherAdapter = new WeatherAdapter();
+
+        mProgressBar = findViewById(R.id.progressBar);
+        mRecyclerView = findViewById(R.id.cities_list_rv);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mWeatherAdapter);
 
@@ -113,7 +111,6 @@ public class CitiesListActivity extends AppCompatActivity implements ICitiesList
 
         ImageView renewData = findViewById(R.id.renew_weather_image_view);
         renewData.setOnClickListener(v -> mCitiesListPresenter.loadNetData());
-
     }
 }
 

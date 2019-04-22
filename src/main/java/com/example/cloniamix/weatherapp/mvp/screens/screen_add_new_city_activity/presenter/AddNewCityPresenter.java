@@ -35,7 +35,6 @@ public class AddNewCityPresenter extends BasePresenter<AddNewCityActivity> {
         if (getView().getCityName() != null){
             String cityName = getView().getCityName();
             searchCityWeather(cityName);
-
         }else getView().showToast("Введите название города");
     }
 
@@ -43,7 +42,7 @@ public class AddNewCityPresenter extends BasePresenter<AddNewCityActivity> {
         getView().goToActivity();
     }
 
-    // TODO: 10.04.2019 обработать ошибку поиска
+
     private void searchCityWeather(String cityName){
         mCompositeDisposable.add(mModel.getWeatherWithCityName(cityName)
                 .subscribeOn(Schedulers.io())

@@ -11,7 +11,6 @@ import com.example.cloniamix.weatherapp.mvp.model.Model;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_details.ui.DetailsActivity;
 
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -35,6 +34,8 @@ public class DetailsPresenter extends BasePresenter<DetailsActivity> {
     }
 
     public void loadData(String cityName){
+        getView().showProgress(true);
+
         mCompositeDisposable.add(mModel.getCity(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -46,6 +47,9 @@ public class DetailsPresenter extends BasePresenter<DetailsActivity> {
     }
 
     public void updateData(String cityName){
+
+        getView().showProgress(true);
+
         mCompositeDisposable.add(mModel.getWeatherWithCityName(cityName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

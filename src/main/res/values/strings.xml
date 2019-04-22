@@ -9,4 +9,8 @@
     <string name="search_btn_text">Найти</string>
     <string name="cancel_btn_text">Отмена</string>
     <string name="city_name_hint">City Name</string>
+    <string name="wind_speed_tv">wind</string>
+    <string name="pressure_tv">pressure</string>
+    <string name="humidity_tv">humidity</string>
+    <string name="toolbar_title">Weather</string>
 </resources>

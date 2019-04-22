@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,31 +15,31 @@ import android.widget.Toast;
 import com.example.cloniamix.weatherapp.R;
 import com.example.cloniamix.weatherapp.RoomDB.Entity.City;
 import com.example.cloniamix.weatherapp.app.Utils;
-import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.presenter.CitiesListPresenter;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_city_list_activity.ui.CitiesListActivity;
 import com.example.cloniamix.weatherapp.mvp.screens.screen_details.ui.DetailsActivity;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
 
     private List<City> mCities;
 
-    public WeatherAdapter(/*List<City> cities*/) {
-        /*mCities = cities;*/
+    public WeatherAdapter() {
     }
 
+    @NonNull
     @Override
-    public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public WeatherViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_city_weather,parent,false);
         return new WeatherViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(WeatherViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WeatherViewHolder holder, int position) {
         City city = mCities.get(position);
         holder.bindCity(city);
     }
@@ -57,40 +56,33 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     static  class WeatherViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener{
 
-
         private City mCity;
         private TextView mCityName;
         private TextView mConditions;
-
         private ImageView mImageView;
-
         private TextView mTempNow;
 
         private WeatherViewHolder(View itemView) {
             super(itemView);
+
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
+
             mCityName = itemView.findViewById(R.id.city_name_tv);
             mConditions = itemView.findViewById(R.id.conditions_tv);
-
             mImageView = itemView.findViewById(R.id.imageView);
-
             mTempNow = itemView.findViewById(R.id.temp_now_tv);
         }
 
         private void bindCity(City city){
             mCity = city;
             String tempNow = Double.toString(mCity.getTempNow());
+            String icon = "i" + mCity.getIcon();
+            int id = itemView.getContext().getResources().getIdentifier(icon, "drawable", itemView.getContext().getPackageName());
 
             mCityName.setText(mCity.getCityName());
             mConditions.setText(mCity.getConditions());
-
-
-            String icon = "i" + mCity.getIcon();
-
-            int id = itemView.getContext().getResources().getIdentifier(icon, "drawable", itemView.getContext().getPackageName());
             mImageView.setImageResource(id);
-
             mTempNow.setText(tempNow);
         }
 
@@ -107,7 +99,6 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
             Intent intent = new Intent(context, DetailsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            /*intent.putExtra("cityName",mCity.getCityName());*/
             context.startActivity(intent);
 
         }
@@ -116,7 +107,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
         @Override
         public boolean onLongClick(View v) {
 
-            Context context =(CitiesListActivity) (itemView.getContext());
+            Context context =(itemView.getContext());
 
             Utils.log("Долгое нажатие сработало для: " + mCity.getCityName());
             Toast.makeText(context,"Сейчас должен удалиться город " + mCity.getCityName(),Toast.LENGTH_SHORT).show();
@@ -125,21 +116,11 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
             builder.setTitle("Удаление города")
                     .setMessage("Вы уверенны?")
                     .setCancelable(true)
-                    .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
-                    .setPositiveButton("Да", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
+                    .setNegativeButton("Отмена",(dialog, which) -> dialog.cancel())
+                    .setPositiveButton("Да", (dialog, which) ->  {
                             if (((CitiesListActivity) (context)).getCitiesListPresenter() != null) {
                                 ((CitiesListActivity) itemView.getContext()).getCitiesListPresenter().deleteCity(mCity);
-                            /*CitiesListPresenter presenter = new CitiesListPresenter();
-                            presenter.deleteCity(mCity);*/
                             }
-                        }
                     })
                     .setOnCancelListener(DialogInterface::cancel);
             AlertDialog alertDialog = builder.create();
